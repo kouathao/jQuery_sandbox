@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Event Delegation</title>
+  </head>
+  <body>
+    <div id="container">
+      <ul id="list">
+        <li><a href="http://domain1.com">Item #1</a></li>
+        <li><a href="/local/path/1">Item #2</a></li>
+        <li><a href="/local/path/2">Item #3</a></li>
+        <li><a href="http://domain4.com">Item #4</a></li>
+      </ul>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script>
+      $("#list a").on("click", function(e) {
+        e.preventDefault();
+        console.log($(this).text());
+      });
+      $("#list").append("<li><a href='http://newdomain.com'>Item #5</a></li>");
+
+      // Attach a delegated event handler
+      $("#list").on("click", "a", function(e) {
+        var elem = $(this);
+        if (elem.is("[href^='http']")) {
+          elem.arrt("target", "_blank");
+        }
+      });
+    </script>
+  </body>
+</html>
